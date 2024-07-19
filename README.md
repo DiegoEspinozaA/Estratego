@@ -1,23 +1,13 @@
-## ESTRATEGO TFT SET 11
-![main](https://i.imgur.com/rdBlPKd.png)
-Este proyecto es una herramienta que proporciona información y recomendaciones para mejorar el rendimiento de los jugadores en partidas de Teamfight Tactics (TFT) modo de juego de League of Legends. Utiliza APIs propias del juego, APIs externas y ScreenScraper para recopilar datos en tiempo real, ofreciendo detalles como el estado del jugador, parámetros de la partida, las mejores composiciones de TFT, análisis de la tienda y detección de comandos de voz para acciones in-game.
+## Jugar mediante comandos de  voz
 
-## Antes de utilizar:
-- League of Legends debe estar en español.
-- Se requiere una resolución de 1920x1080 en modo ventana sin bordes, los analsis de ScreenScraper estan hecho en base a esas dimensiones.
-- Sistema operativo Windows 11.
+Se implementan los comandos de voz para permitir al jugador jugador sin utilizar el teclado.
 
-## EJECUCÍON:
-**BACK**
-1. Ejecuta el archivo `EAPI.exe`.
-2. Ejecuta el archivo `ESTRATEGO.exe`.
-3. Accede a https://diegoespinozaa.github.io/TFT_assistant/ para las funciones de ESTRATEGOO.
+Presionando Ctrl + Shift + D se accede/sale al/del modo escucha:
+![image](https://github.com/user-attachments/assets/d344e285-bf31-4a67-a191-faf330b527de)
 
-## CARACTERÍSTICAS:
-![main](https://i.imgur.com/j5xi92H.png)
-- Obtener estado del jugador (Vida / Oro)
-- Obtener parametros de la partida (Ronda / Jugadores)
-- Obtener las mejores composiciones de TFT (API Externa).
-- Analisis de la tienda en tiempo real utilizando ScreenScraper para indicar que campeones comprar.
-- Detección de comandos de voz para realizar acciones del juego (Comprar a <Campeon> / Reroll / Actualizar tienda).
+El usuario puede interactuar con el programa mediante el microfono, luego de una pausa de 3 segundos se analizara si el comando detectado es valido, de ser correcto recalcara el texto con verde y ejecutara la acción, en caso contrario el texto sera recaldado en rojo y no ejecutara nada.
 
+Comandos disponibles.
+- Re roll: Cambiar la tienda por completo para ofrecer nuevos campeones.
+- Compra xp: Comprar xp, la cual es utilizada por el jugador para subir de nivel.
+- Compra a <x campeon>: Comprar un campeon disponible en la tienda actual.
