@@ -1,11 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMicrophone } from '@fortawesome/free-solid-svg-icons';
+import { validateCommand } from '../voice_detection/commands'; // Importa el archivo de validación
 
-function Voice() {
+function Voice({ onBuyChampion }) {
     const [showOverlay, setShowOverlay] = useState(false);
+    const [error, setError] = useState(false);
+    const [recognizedCommand, setRecognizedCommand] = useState(false);
     const [hasFocus, setHasFocus] = useState(true);
+    const timeoutRef = useRef(null);
 
     const {
         transcript,
@@ -26,30 +30,78 @@ function Voice() {
             }
         };
 
+        window.addEventListener('keydown', handleKeyDown);
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [listening]);
+
+    useEffect(() => {
+        if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current);
+        }
+
+        if (transcript) {
+            timeoutRef.current = setTimeout(() => {
+                handleCommand(transcript);
+            }, 3000); // 3 segundos
+        }
+
+        return () => {
+            clearTimeout(timeoutRef.current);
+        };
+    }, [transcript]);
+
+    const handleCommand = (command) => {
+        const result = validateCommand(command);
+        if (result.success) {
+            setRecognizedCommand(true);
+            setTimeout(() => {
+                setRecognizedCommand(false);
+                resetTranscript();
+            }, 3000);
+            fetch('http://localhost:5000/api/comando-actual', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ comando: command }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Comando actualizado:', data);
+                    // Realizar cualquier acción adicional necesaria
+                })
+                .catch(error => {
+                    console.error('Error al actualizar el comando:', error);
+                });
+        } else {
+            setError(true);
+            setTimeout(() => {
+                setError(false);
+                resetTranscript();
+            }, 3000);
+        }
+    };
+
+    const startListening = () => {
+        resetTranscript();
+        SpeechRecognition.startListening({ continuous: true });
+        setShowOverlay(true);
         const handleVisibilityChange = () => {
             setHasFocus(!document.hidden);
         };
 
-        window.addEventListener('keydown', handleKeyDown);
         document.addEventListener('visibilitychange', handleVisibilityChange);
 
         return () => {
-            window.removeEventListener('keydown', handleKeyDown);
             document.removeEventListener('visibilitychange', handleVisibilityChange);
         };
-    }, [listening]);
-
-    const startListening = () => {
-        resetTranscript(); // Resetea el transcript antes de comenzar a escuchar
-        SpeechRecognition.startListening({ continuous: true });
-        setShowOverlay(true); // Mostrar la interfaz de pantalla completa
-        notify('Voice recognition started');
     };
 
     const stopListening = () => {
         SpeechRecognition.stopListening();
-        setShowOverlay(false); // Ocultar la interfaz de pantalla completa
-        notify('Voice recognition stopped');
+        setShowOverlay(false);
     };
 
     const notify = (message) => {
@@ -71,7 +123,7 @@ function Voice() {
     return (
         <div>
             {showOverlay && (
-                <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-80 text-white flex flex-col justify-center items-center z-50 text-2xl text-center backdrop-blur-md ">
+                <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-80 text-white flex flex-col justify-center items-center z-50 text-2xl text-center backdrop-blur-md">
                     <div className="relative">
                         <button
                             id="speech"
@@ -84,7 +136,12 @@ function Voice() {
                     </div>
 
                     <h1 className="text-4xl m-4">Escuchando . . .</h1>
-                    <p>{transcript || 'ㅤ'}</p>
+                    <p className={`border border-zinc-900 py-2 px-2 rounded transition-all duration-300 
+                                    ${error ? 'bg-red-500' : ''}
+                                    ${recognizedCommand ? 'bg-green-500' : 'text-white'}`}>
+                    
+                    {transcript || 'ㅤ'}
+                    </p>
                 </div>
             )}
         </div>
