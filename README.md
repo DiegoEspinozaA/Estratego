@@ -1,34 +1,8 @@
-## ESTRATEGO TFT SET 11
-Este proyecto es una herramienta que proporciona información y recomendaciones para mejorar el rendimiento de los jugadores en partidas de Teamfight Tactics (TFT) modo de juego de League of Legends. Utiliza APIs propias del juego, APIs extenernas y ScreenScraper para recopilar datos en tiempo real, ofreciendo detalles como el estado del jugador, parámetros de la partida, las mejores composiciones de TFT, análisis de la tienda y detección de comandos de voz para acciones in-game.
+## Recomendaciones en tiempo real
 
-## Antes de utilizar:
-- League of Legends debe estar en español.
-- Se requiere una resolución de 1920x1080 en modo ventana sin bordes, los analsis de ScreenScraper estan hecho en base a esas dimensiones.
+Mediante la API publica [MetaTFT Augments API](https://api2.metatft.com/tft-stat-api/augments_full2?queue=1100&patch=current&days=2&rank=CHALLENGER,DIAMOND,GRANDMASTER,MASTER&permit_filter_adjustment=true), se obtienen las mejores combinaciones para la version mas actual del juego.
 
-## INSTALACIÓN:
-1. Instala Python 3.11.4 desde [python.org](https://www.python.org/downloads/windows/)
-3. Instala Tesseract 5.3.1.20230401 usando el instalador de Windows disponible en: https://digi.bib.uni-mannheim.de/tesseract/tesseract-ocr-w64-setup-5.3.1.20230401.exe
-   - Anota la ruta de Tesseract desde la instalación.
-   - Configura la ruta de la carpeta `tessdata` de Tesseract en el archivo `settings.py`.
-4. Descarga `tesserocr` v2.6.0 en la carpeta del bot desde: https://github.com/simonflueckiger/tesserocr-windows_build/releases/download/tesserocr-v2.6.2-tesseract-5.3.4/tesserocr-2.6.2-cp312-cp312-win_amd64.whl   - Ten en cuenta que la versión debe ser 2.6.0 para ser compatible con Tesseract 5.3.1.
-   - El nombre del archivo debe ser `tesserocr-2.6.0-cp311-cp311-win_amd64.whl` o su correspondiente para `cp310` de ser otro renombrar.
-5. Ejecuta `install.py`.
-6. Configura `settings.py` para que la ruta del cliente de League of Legends sea correcta.
-7. Desactiva todas las superposiciones en el juego.
-
-## EJECUCÍON:
-**BACK**
-1. Ejecuta el archivo `app.py` en una ventana CMD. 
-2. Ejecuta el archivo `main.py` en otra ventana CMD.
-
-**FRONT**
-1. `npm start` dentro la carpeta contendora del Front.
-
-## CARACTERÍSTICAS:
-![main](https://i.imgur.com/j5xi92H.png)
-- Obtener estado del jugador (Vida / Oro)
-- Obtener parametros de la partida (Ronda / Jugadores)
-- Obtener las mejores composiciones de TFT (API Externa).
-- Analisis de la tienda en tiempo real utilizando ScreenScraper para indicar que campeones comprar.
-- Detección de comandos de voz para realizar acciones del juego (Comprar a <Campeon> / Reroll / Actualizar tienda).
-
+![image](https://github.com/user-attachments/assets/0cf716bd-bb70-4ee3-8392-8d6e72095565)
+- Se mostraran un listado de composiciones, el usuario decidi cual utilizar, ademas se le entrega la mejor disposicion de estos dentro del tablero
+- La composicion elegida por el usuario determinara que campeones se le recomendaran para comprar en la tienda, estos seran remarcados con un marco dorado.
+- ![image](https://github.com/user-attachments/assets/46781e25-c73b-47f5-9d9d-b4ddf7e7e8af)
