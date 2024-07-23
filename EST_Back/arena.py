@@ -2,6 +2,7 @@ from time import sleep
 import screen_coords
 from champion import Champion
 import arena_functions
+import pydirectinput
 
 
 class Arena:
@@ -21,8 +22,6 @@ class Arena:
         self.augment_roll = True
         self.spam_roll = False
     
-
-
 
     def spend_gold(self) -> None:
         shop: list = arena_functions.get_shop()
