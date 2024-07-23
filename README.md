@@ -1,13 +1,8 @@
-## Jugar mediante comandos de  voz
+## Recomendaciones en tiempo real
 
-Se implementan los comandos de voz para permitir al jugador jugador sin utilizar el teclado.
+Mediante la API publica [MetaTFT Augments API](https://api2.metatft.com/tft-stat-api/augments_full2?queue=1100&patch=current&days=2&rank=CHALLENGER,DIAMOND,GRANDMASTER,MASTER&permit_filter_adjustment=true), se obtienen las mejores combinaciones para la version mas actual del juego.
 
-Presionando Ctrl + Shift + D se accede/sale al/del modo escucha:
-![image](https://github.com/user-attachments/assets/d344e285-bf31-4a67-a191-faf330b527de)
-
-El usuario puede interactuar con el programa mediante el microfono, luego de una pausa de 3 segundos se analizara si el comando detectado es valido, de ser correcto recalcara el texto con verde y ejecutara la acción, en caso contrario el texto sera recaldado en rojo y no ejecutara nada.
-
-Comandos disponibles.
-- Re roll: Cambiar la tienda por completo para ofrecer nuevos campeones.
-- Compra xp: Comprar xp, la cual es utilizada por el jugador para subir de nivel.
-- Compra a <x campeon>: Comprar un campeon disponible en la tienda actual.
+![image](https://github.com/user-attachments/assets/0cf716bd-bb70-4ee3-8392-8d6e72095565)
+- Se mostraran un listado de composiciones, el usuario decidi cual utilizar, ademas se le entrega la mejor disposicion de estos dentro del tablero
+- La composicion elegida por el usuario determinara que campeones se le recomendaran para comprar en la tienda, estos seran remarcados con un marco dorado.
+- ![image](https://github.com/user-attachments/assets/46781e25-c73b-47f5-9d9d-b4ddf7e7e8af)
